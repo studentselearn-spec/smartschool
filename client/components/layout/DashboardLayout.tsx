@@ -25,7 +25,7 @@ const navItems = [
 
 // Assign the layout function to window to avoid redeclaration during HMR
 if (!(window as any).__fuse_dashboard_layout__) {
-  (window as any).__fuse_dashboard_layout__ = function DashboardLayout(props: { children: React.ReactNode }) {
+  (window as any).__fuse_dashboard_layout__ = (props: { children: React.ReactNode }) => {
     const branding = getDefaultBranding(window);
     const location = useLocation();
     const { children } = props;
