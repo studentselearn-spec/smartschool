@@ -12,7 +12,7 @@ export default function Parents() {
   const [selected, setSelected] = useState<number | null>(null);
 
   return (
-    <DashboardLayout>
+    <AppLayout>
       <div className="rounded-xl border bg-white p-6 shadow-sm">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl font-semibold">Parents</h2>
@@ -66,6 +66,6 @@ export default function Parents() {
           </div>
         )}
       </div>
-    </DashboardLayout>
+    </AppLayout>
   );
 }
