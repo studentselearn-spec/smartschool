@@ -1,4 +1,4 @@
-import DashboardLayout from "@/components/layout/DashboardLayout";
+import AppLayout from "@/components/layout/AppLayout";
 
 export default function BrandingSettings() {
   return (
