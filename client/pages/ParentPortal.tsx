@@ -1,7 +1,7 @@
-import MainLayout from "@/components/layout/MainLayout";
+import Layout from "@/components/layout/Layout";
 import { getDefaultBranding } from "@/lib/branding";
 import { useState } from "react";
-import MainLayout from "@/components/layout/MainLayout";
+import Layout from "@/components/layout/Layout";
 
 export default function ParentPortal() {
   const branding = getDefaultBranding(window);
