@@ -1,6 +1,6 @@
 import AppLayout from "@/components/layout/AppLayout";
 import { getDefaultBranding } from "@/lib/branding";
-import MainLayout from "@/components/layout/MainLayout";
+import Layout from "@/components/layout/Layout";
 import {
   Bar,
   BarChart,
@@ -38,7 +38,7 @@ export default function AdminDashboard() {
   const branding = getDefaultBranding(window);
 
   return (
-    <MainLayout>
+    <Layout>
       <div className="rounded-lg bg-gradient-to-r from-blue-50 to-white p-4 border mb-6">
         <div className="text-sm">Custom Domain Active:</div>
         <div className="font-semibold text-blue-700">{branding.subdomain}.samuelmarketplace.com</div>
@@ -87,6 +87,6 @@ export default function AdminDashboard() {
           </div>
         </div>
       </div>
-    </MainLayout>
+    </Layout>
   );
 }
