@@ -43,4 +43,12 @@ const App = () => (
   </QueryClientProvider>
 );
 
-createRoot(document.getElementById("root")!).render(<App />);
+const container = document.getElementById("root")!;
+const __rootKey = "__fuse_app_root__";
+// Reuse existing root to avoid calling createRoot multiple times (HMR / fast refresh safe)
+let root = (window as any)[__rootKey];
+if (!root) {
+  root = createRoot(container);
+  (window as any)[__rootKey] = root;
+}
+root.render(<App />);
