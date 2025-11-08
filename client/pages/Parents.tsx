@@ -1,5 +1,6 @@
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import { useState } from "react";
+import DashboardLayout from "@/components/layout/DashboardLayout";
 
 const demoParents = [
   { id: 1, name: "Sibongile Kgosi", child: "Tebogo Kgosi", class: "Grade 5 - A", contact: "+267 71 234 567", status: "Active" },
