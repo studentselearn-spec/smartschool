@@ -16,6 +16,7 @@ import React from "react";
 const navItems = [
   { to: "/admin", label: "Dashboard", icon: LayoutGrid },
   { to: "/students", label: "Students", icon: Users },
+  { to: "/parents", label: "Parents", icon: UsersRound },
   { to: "/attendance", label: "Attendance", icon: ClipboardCheck },
   { to: "/fees", label: "Fees", icon: Wallet },
   { to: "/reports", label: "Reports", icon: BarChart2 },
