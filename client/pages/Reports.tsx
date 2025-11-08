@@ -1,4 +1,4 @@
-import DashboardLayout from "@/components/layout/DashboardLayout";
+import MainLayout from "@/components/layout/MainLayout";
 
 export default function Reports() {
   return (
