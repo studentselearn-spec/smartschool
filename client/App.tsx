@@ -15,6 +15,7 @@ import Fees from "./pages/Fees";
 import Reports from "./pages/Reports";
 import BrandingSettings from "./pages/BrandingSettings";
 import ParentPortal from "./pages/ParentPortal";
+import Landing from "./pages/Landing";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +27,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/marketing" element={<Landing />} />
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/students" element={<Students />} />
           <Route path="/attendance" element={<Attendance />} />
