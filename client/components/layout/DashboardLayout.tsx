@@ -23,7 +23,10 @@ const navItems = [
   { to: "/branding", label: "Branding", icon: Palette },
 ];
 
-export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+const __dlKey = "__fuse_dashboard_layout__";
+let __existingDL = (window as any)[__dlKey];
+
+const DashboardLayoutImpl = (__existingDL && __existingDL.__impl) || function DashboardLayout({ children }: { children: React.ReactNode }) {
   const branding = getDefaultBranding(window);
   const location = useLocation();
 
@@ -94,4 +97,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       </div>
     </div>
   );
+};
+
+if (!__existingDL) {
+  (window as any)[__dlKey] = { __impl: DashboardLayoutImpl };
 }
+
+export default DashboardLayoutImpl;
