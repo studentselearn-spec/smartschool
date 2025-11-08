@@ -189,9 +189,9 @@ export default function Landing() {
           <div className="max-w-6xl mx-auto px-6">
             <h3 className="text-xl font-semibold mb-6">Simple yearly plans for every school size</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <PricingCard title="Lite (for Crèches)" price="P2,000/year" />
-              <PricingCard title="Pro (for Primary Schools)" price="P5,000/year" />
-              <PricingCard title="Enterprise (for Multi-Campus)" price="P10,000/year" />
+              <PricingCard title="Lite (for Crèches)" price="P5,000/year" />
+              <PricingCard title="Pro (for Primary Schools)" price="P10,000/year" />
+              <PricingCard title="Enterprise (for Multi-Campus)" price="P15,000/year" />
             </div>
             <div className="mt-4 text-sm text-muted-foreground">Founding Partner School gets 10% revenue share for referrals.</div>
           </div>
