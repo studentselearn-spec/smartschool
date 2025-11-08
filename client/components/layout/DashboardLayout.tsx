@@ -26,7 +26,7 @@ const navItems = [
 const __dlKey = "__fuse_dashboard_layout__";
 let __existingDL = (window as any)[__dlKey];
 
-const DashboardLayoutImpl = (__existingDL && __existingDL.__impl) || function DashboardLayout({ children }: { children: React.ReactNode }) {
+const DashboardLayoutImpl = (__existingDL && __existingDL.__impl) || (function ({ children }: { children: React.ReactNode }) {
   const branding = getDefaultBranding(window);
   const location = useLocation();
 
@@ -97,7 +97,7 @@ const DashboardLayoutImpl = (__existingDL && __existingDL.__impl) || function Da
       </div>
     </div>
   );
-};
+}) ;
 
 if (!__existingDL) {
   (window as any)[__dlKey] = { __impl: DashboardLayoutImpl };
