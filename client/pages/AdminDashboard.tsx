@@ -1,5 +1,6 @@
 import AppLayout from "@/components/layout/AppLayout";
 import { getDefaultBranding } from "@/lib/branding";
+import MainLayout from "@/components/layout/MainLayout";
 import {
   Bar,
   BarChart,
