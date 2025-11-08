@@ -16,6 +16,7 @@ import Reports from "./pages/Reports";
 import BrandingSettings from "./pages/BrandingSettings";
 import ParentPortal from "./pages/ParentPortal";
 import Landing from "./pages/Landing";
+import Parents from "./pages/Parents";
 
 const queryClient = new QueryClient();
 
