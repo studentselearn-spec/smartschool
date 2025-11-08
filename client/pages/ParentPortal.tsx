@@ -19,7 +19,7 @@ export default function ParentPortal() {
   };
 
   return (
-    <DashboardLayout>
+    <MainLayout>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">
           <div className="rounded-xl border bg-white p-6 shadow-sm">
@@ -123,6 +123,6 @@ export default function ParentPortal() {
           </div>
         </aside>
       </div>
-    </DashboardLayout>
+    </MainLayout>
   );
 }
