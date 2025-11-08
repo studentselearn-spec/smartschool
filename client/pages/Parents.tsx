@@ -1,6 +1,5 @@
-import AppLayout from "@/components/layout/AppLayout";
+import MainLayout from "@/components/layout/MainLayout";
 import { useState } from "react";
-import AppLayout from "@/components/layout/AppLayout";
 
 const demoParents = [
   { id: 1, name: "Sibongile Kgosi", child: "Tebogo Kgosi", class: "Grade 5 - A", contact: "+267 71 234 567", status: "Active" },
@@ -12,7 +11,7 @@ export default function Parents() {
   const [selected, setSelected] = useState<number | null>(null);
 
   return (
-    <AppLayout>
+    <MainLayout>
       <div className="rounded-xl border bg-white p-6 shadow-sm">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl font-semibold">Parents</h2>
@@ -56,9 +55,7 @@ export default function Parents() {
         {selected && (
           <div className="mt-6 rounded-lg border bg-blue-50 p-4">
             <h3 className="font-semibold">Child Report (Preview)</h3>
-            <div className="mt-3 text-sm">
-              This is a visual preview of the child report. Download as PDF in the final product.
-            </div>
+            <div className="mt-3 text-sm">This is a visual preview of the child report. Download as PDF in the final product.</div>
             <div className="mt-4 flex gap-2">
               <button className="px-3 py-2 rounded-md bg-white border">Download PDF</button>
               <button onClick={() => setSelected(null)} className="px-3 py-2 rounded-md border">Close</button>
@@ -66,6 +63,6 @@ export default function Parents() {
           </div>
         )}
       </div>
-    </AppLayout>
+    </MainLayout>
   );
 }
