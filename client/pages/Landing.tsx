@@ -106,7 +106,7 @@ export default function Landing() {
                   <button onClick={() => setShowDemoForm(true)} className="px-6 py-3 rounded-md bg-white text-blue-700 font-semibold">
                     Request a Demo
                   </button>
-                  <Link to="/" className="px-6 py-3 rounded-md border border-white text-white/90">
+                  <Link to="/demo" className="px-6 py-3 rounded-md border border-white text-white/90">
                     Login to Demo School
                   </Link>
                 </div>
