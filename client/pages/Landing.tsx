@@ -71,7 +71,7 @@ export default function Landing() {
       <header className="flex items-center justify-between px-6 py-4 max-w-6xl mx-auto w-full">
         <BrandLogo name="Samuel Marketplace" logoUrl={null} />
         <nav className="flex items-center gap-4">
-          <Link to="/" className="text-sm text-slate-700 hover:underline">
+          <Link to="/demo" className="text-sm text-slate-700 hover:underline">
             Login to Demo School
           </Link>
           <button
