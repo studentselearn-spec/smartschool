@@ -1,6 +1,6 @@
-import DashboardLayout from "@/components/layout/DashboardLayout";
+import AppLayout from "@/components/layout/AppLayout";
 import { useState } from "react";
-import DashboardLayout from "@/components/layout/DashboardLayout";
+import AppLayout from "@/components/layout/AppLayout";
 
 const demoParents = [
   { id: 1, name: "Sibongile Kgosi", child: "Tebogo Kgosi", class: "Grade 5 - A", contact: "+267 71 234 567", status: "Active" },
