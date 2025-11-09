@@ -37,6 +37,7 @@ if (!(window as any).__fuse_layout__) {
   (window as any).__fuse_layout__ = (props: { children: React.ReactNode }) => {
     const branding = getDefaultBranding(window);
     const location = useLocation();
+    const [mobileOpen, setMobileOpen] = useState(false);
     const { children } = props;
 
     return (
