@@ -38,84 +38,9 @@ if (!(window as any).__fuse_layout__) {
     const location = useLocation();
     const [mobileOpen, setMobileOpen] = useState(false);
 
-    // Collapsible groups for mobile menu
-    const ManagementGroup = () => {
-      const [open, setOpen] = useState(true);
-      return (
-        <div>
-          <button
-            onClick={() => setOpen((s) => !s)}
-            className="w-full flex items-center justify-between px-3 py-2 rounded-md mb-1 text-sm hover:bg-slate-50"
-            aria-expanded={open}
-          >
-            <span className="flex items-center gap-3">
-              <span className="text-slate-700">👥</span>
-              <span>Management</span>
-            </span>
-            <span className="text-sm">{open ? "−" : "+"}</span>
-          </button>
-          {open && (
-            <div className="pl-6 mt-1 flex flex-col gap-1">
-              {["/students", "/parents", "/staff"].map((to) => {
-                const item = navItems.find((n) => n.to === to)!;
-                const Icon = item.icon as any;
-                const active = location.pathname === item.to;
-                return (
-                  <Link
-                    key={to}
-                    to={to}
-                    onClick={() => setMobileOpen(false)}
-                    className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm transition ${active ? "bg-blue-600 text-white" : "hover:bg-sky-50 text-slate-700"}`}
-                  >
-                    <Icon size={16} />
-                    <span>{item.label}</span>
-                  </Link>
-                );
-              })}
-            </div>
-          )}
-        </div>
-      );
-    };
-
-    const OperationsGroup = () => {
-      const [open, setOpen] = useState(true);
-      return (
-        <div>
-          <button
-            onClick={() => setOpen((s) => !s)}
-            className="w-full flex items-center justify-between px-3 py-2 rounded-md mb-1 text-sm hover:bg-slate-50"
-            aria-expanded={open}
-          >
-            <span className="flex items-center gap-3">
-              <span className="text-slate-700">⚙️</span>
-              <span>Operations</span>
-            </span>
-            <span className="text-sm">{open ? "−" : "+"}</span>
-          </button>
-          {open && (
-            <div className="pl-6 mt-1 flex flex-col gap-1">
-              {["/attendance", "/timetable", "/fees", "/expenses"].map((to) => {
-                const item = navItems.find((n) => n.to === to)!;
-                const Icon = item.icon as any;
-                const active = location.pathname === item.to;
-                return (
-                  <Link
-                    key={to}
-                    to={to}
-                    onClick={() => setMobileOpen(false)}
-                    className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm transition ${active ? "bg-blue-600 text-white" : "hover:bg-sky-50 text-slate-700"}`}
-                  >
-                    <Icon size={16} />
-                    <span>{item.label}</span>
-                  </Link>
-                );
-              })}
-            </div>
-          )}
-        </div>
-      );
-    };
+    // Mobile group open states handled at parent level to avoid nested hook components
+    const [mgOpen, setMgOpen] = useState(true);
+    const [opOpen, setOpOpen] = useState(true);
 
     const { children } = props;
 
