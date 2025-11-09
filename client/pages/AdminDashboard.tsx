@@ -1,4 +1,3 @@
-import AppLayout from "@/components/layout/AppLayout";
 import { getDefaultBranding } from "@/lib/branding";
 import Layout from "@/components/layout/Layout";
 import {

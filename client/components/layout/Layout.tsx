@@ -10,6 +10,9 @@ import {
   BarChart2,
   Palette,
   UsersRound,
+  CalendarDays,
+  Briefcase,
+  Receipt,
 } from "lucide-react";
 import React from "react";
 
@@ -18,7 +21,10 @@ const navItems = [
   { to: "/students", label: "Students", icon: Users },
   { to: "/parents", label: "Parents", icon: UsersRound },
   { to: "/attendance", label: "Attendance", icon: ClipboardCheck },
+  { to: "/timetable", label: "Timetable", icon: CalendarDays },
+  { to: "/staff", label: "Staff", icon: Briefcase },
   { to: "/fees", label: "Fees", icon: Wallet },
+  { to: "/expenses", label: "Expenses", icon: Receipt },
   { to: "/reports", label: "Reports", icon: BarChart2 },
   { to: "/branding", label: "Branding", icon: Palette },
 ];

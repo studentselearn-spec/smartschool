@@ -17,6 +17,9 @@ import BrandingSettings from "./pages/BrandingSettings";
 import ParentPortal from "./pages/ParentPortal";
 import Landing from "./pages/Landing";
 import Parents from "./pages/Parents";
+import Timetable from "./pages/Timetable";
+import Staff from "./pages/Staff";
+import Expenses from "./pages/Expenses";
 
 const queryClient = new QueryClient();
 
@@ -36,6 +39,9 @@ const App = () => (
           <Route path="/attendance" element={<Attendance />} />
           <Route path="/fees" element={<Fees />} />
           <Route path="/reports" element={<Reports />} />
+          <Route path="/timetable" element={<Timetable />} />
+          <Route path="/staff" element={<Staff />} />
+          <Route path="/expenses" element={<Expenses />} />
           <Route path="/branding" element={<BrandingSettings />} />
           <Route path="/parent" element={<ParentPortal />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
