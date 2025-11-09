@@ -18,7 +18,7 @@ const PERIODS = [1, 2, 3, 4, 5, 6];
 
 type Cell = { subject: string; teacher?: string };
 
-type TimetableData = Record<typeof DAYS[number], Cell[]>;
+type TimetableData = Record<(typeof DAYS)[number], Cell[]>;
 
 function loadTimetable(cls: string): TimetableData {
   const key = `timetable:${cls}`;
@@ -28,11 +28,21 @@ function loadTimetable(cls: string): TimetableData {
       const parsed = JSON.parse(raw);
       // ensure proper shape
       const result: TimetableData = {
-        Mon: Array.isArray(parsed.Mon) ? parsed.Mon : Array(PERIODS.length).fill({ subject: "" }),
-        Tue: Array.isArray(parsed.Tue) ? parsed.Tue : Array(PERIODS.length).fill({ subject: "" }),
-        Wed: Array.isArray(parsed.Wed) ? parsed.Wed : Array(PERIODS.length).fill({ subject: "" }),
-        Thu: Array.isArray(parsed.Thu) ? parsed.Thu : Array(PERIODS.length).fill({ subject: "" }),
-        Fri: Array.isArray(parsed.Fri) ? parsed.Fri : Array(PERIODS.length).fill({ subject: "" }),
+        Mon: Array.isArray(parsed.Mon)
+          ? parsed.Mon
+          : Array(PERIODS.length).fill({ subject: "" }),
+        Tue: Array.isArray(parsed.Tue)
+          ? parsed.Tue
+          : Array(PERIODS.length).fill({ subject: "" }),
+        Wed: Array.isArray(parsed.Wed)
+          ? parsed.Wed
+          : Array(PERIODS.length).fill({ subject: "" }),
+        Thu: Array.isArray(parsed.Thu)
+          ? parsed.Thu
+          : Array(PERIODS.length).fill({ subject: "" }),
+        Fri: Array.isArray(parsed.Fri)
+          ? parsed.Fri
+          : Array(PERIODS.length).fill({ subject: "" }),
       };
       return result;
     } catch {}
@@ -52,11 +62,17 @@ function saveTimetable(cls: string, data: TimetableData) {
 
 export default function Timetable() {
   const [cls, setCls] = useState(CLASSES[4]);
-  const [data, setData] = useState<TimetableData>(() => loadTimetable(CLASSES[4]));
-  const [editing, setEditing] = useState<{ day: keyof TimetableData; periodIdx: number } | null>(
-    null,
+  const [data, setData] = useState<TimetableData>(() =>
+    loadTimetable(CLASSES[4]),
   );
-  const [form, setForm] = useState<{ subject: string; teacher: string }>({ subject: "", teacher: "" });
+  const [editing, setEditing] = useState<{
+    day: keyof TimetableData;
+    periodIdx: number;
+  } | null>(null);
+  const [form, setForm] = useState<{ subject: string; teacher: string }>({
+    subject: "",
+    teacher: "",
+  });
 
   useEffect(() => {
     setData(loadTimetable(cls));
@@ -106,19 +122,28 @@ export default function Timetable() {
             <tbody>
               {grid.map((row) => (
                 <tr key={row.day} className="border-t">
-                  <td className="px-3 py-2 font-medium text-slate-700">{row.day}</td>
+                  <td className="px-3 py-2 font-medium text-slate-700">
+                    {row.day}
+                  </td>
                   {row.periods.map((cell, i) => (
                     <td key={i} className="px-3 py-2">
                       <button
                         onClick={() => {
                           setEditing({ day: row.day, periodIdx: i });
-                          setForm({ subject: cell.subject, teacher: cell.teacher || "" });
+                          setForm({
+                            subject: cell.subject,
+                            teacher: cell.teacher || "",
+                          });
                         }}
                         className={`w-full text-left rounded-md border px-2 py-2 hover:bg-sky-50 ${
-                          cell.subject ? "bg-white" : "bg-slate-50 text-muted-foreground"
+                          cell.subject
+                            ? "bg-white"
+                            : "bg-slate-50 text-muted-foreground"
                         }`}
                       >
-                        <div className="font-medium">{cell.subject || "Set Subject"}</div>
+                        <div className="font-medium">
+                          {cell.subject || "Set Subject"}
+                        </div>
                         <div className="text-xs text-muted-foreground">
                           {cell.teacher ? `Teacher: ${cell.teacher}` : ""}
                         </div>
@@ -141,8 +166,14 @@ export default function Timetable() {
                   e.preventDefault();
                   const next = { ...data };
                   const arr = [...next[editing.day]];
-                  arr[editing.periodIdx] = { subject: form.subject, teacher: form.teacher };
-                  const merged = { ...next, [editing.day]: arr } as TimetableData;
+                  arr[editing.periodIdx] = {
+                    subject: form.subject,
+                    teacher: form.teacher,
+                  };
+                  const merged = {
+                    ...next,
+                    [editing.day]: arr,
+                  } as TimetableData;
                   setData(merged);
                   setEditing(null);
                 }}
@@ -151,7 +182,9 @@ export default function Timetable() {
                   <label className="block text-sm mb-1">Subject</label>
                   <input
                     value={form.subject}
-                    onChange={(e) => setForm((s) => ({ ...s, subject: e.target.value }))}
+                    onChange={(e) =>
+                      setForm((s) => ({ ...s, subject: e.target.value }))
+                    }
                     className="w-full rounded-md border px-3 py-2"
                     placeholder="Mathematics"
                     required
@@ -161,16 +194,24 @@ export default function Timetable() {
                   <label className="block text-sm mb-1">Teacher</label>
                   <input
                     value={form.teacher}
-                    onChange={(e) => setForm((s) => ({ ...s, teacher: e.target.value }))}
+                    onChange={(e) =>
+                      setForm((s) => ({ ...s, teacher: e.target.value }))
+                    }
                     className="w-full rounded-md border px-3 py-2"
                     placeholder="Ms. Dube"
                   />
                 </div>
                 <div className="flex justify-end gap-2">
-                  <button type="button" onClick={() => setEditing(null)} className="px-3 py-2 rounded-md border">
+                  <button
+                    type="button"
+                    onClick={() => setEditing(null)}
+                    className="px-3 py-2 rounded-md border"
+                  >
                     Cancel
                   </button>
-                  <button className="px-3 py-2 rounded-md bg-blue-600 text-white">Save</button>
+                  <button className="px-3 py-2 rounded-md bg-blue-600 text-white">
+                    Save
+                  </button>
                 </div>
               </form>
             </div>

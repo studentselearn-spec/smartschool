@@ -40,7 +40,9 @@ export default function AdminDashboard() {
     <Layout>
       <div className="rounded-lg bg-gradient-to-r from-blue-50 to-white p-4 border mb-6">
         <div className="text-sm">Custom Domain Active:</div>
-        <div className="font-semibold text-blue-700">{branding.subdomain}.samuelmarketplace.com</div>
+        <div className="font-semibold text-blue-700">
+          {branding.subdomain}.samuelmarketplace.com
+        </div>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
@@ -50,7 +52,9 @@ export default function AdminDashboard() {
             className="rounded-xl border bg-white p-4 shadow-sm hover:shadow transition"
           >
             <div className="text-sm text-muted-foreground">{s.label}</div>
-            <div className="mt-2 text-2xl font-bold text-slate-800">{s.value}</div>
+            <div className="mt-2 text-2xl font-bold text-slate-800">
+              {s.value}
+            </div>
           </div>
         ))}
       </div>
@@ -59,7 +63,9 @@ export default function AdminDashboard() {
         <div className="lg:col-span-2 rounded-xl border bg-white p-4 shadow-sm">
           <div className="flex items-center justify-between mb-4">
             <h3 className="font-semibold">Monthly Fee Collection</h3>
-            <div className="text-xs text-muted-foreground">Currency: Pula (BWP)</div>
+            <div className="text-xs text-muted-foreground">
+              Currency: Pula (BWP)
+            </div>
           </div>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
@@ -82,7 +88,8 @@ export default function AdminDashboard() {
             Add New Student
           </Link>
           <div className="mt-4 rounded-lg bg-blue-50 border border-blue-100 p-3 text-sm text-blue-800">
-            Improve fee collection by enabling online payments via Samuel Marketplace.
+            Improve fee collection by enabling online payments via Samuel
+            Marketplace.
           </div>
         </div>
       </div>

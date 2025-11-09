@@ -5,21 +5,34 @@ import type { Student } from "./Students";
 
 function calcFeesFor(studentId: string) {
   const raw = localStorage.getItem("fees");
-  const fees = raw ? JSON.parse(raw) : {} as Record<string, { items: { type: "invoice"|"payment"; amount: number }[] }>;
+  const fees = raw
+    ? JSON.parse(raw)
+    : ({} as Record<
+        string,
+        { items: { type: "invoice" | "payment"; amount: number }[] }
+      >);
   const items = fees[studentId]?.items || [];
-  const invoiced = items.filter((i:any)=>i.type==="invoice").reduce((s:number,i:any)=>s+i.amount,0);
-  const paid = items.filter((i:any)=>i.type==="payment").reduce((s:number,i:any)=>s+i.amount,0);
+  const invoiced = items
+    .filter((i: any) => i.type === "invoice")
+    .reduce((s: number, i: any) => s + i.amount, 0);
+  const paid = items
+    .filter((i: any) => i.type === "payment")
+    .reduce((s: number, i: any) => s + i.amount, 0);
   return { invoiced, paid, due: Math.max(0, invoiced - paid) };
 }
 
 function calcAttendancePercent(cls: string, studentId: string) {
-  let present = 0, total = 0;
+  let present = 0,
+    total = 0;
   for (const key in localStorage) {
     if (key.startsWith(`attendance:${cls}:`)) {
       try {
         const arr = JSON.parse(localStorage.getItem(key) || "[]");
         const rec = arr.find((x: any) => x.studentId === studentId);
-        if (rec) { total++; if (rec.present) present++; }
+        if (rec) {
+          total++;
+          if (rec.present) present++;
+        }
       } catch {}
     }
   }
@@ -32,32 +45,57 @@ export default function ParentPortal() {
   const [view, setView] = useState<"parent" | "student">("parent");
 
   const students: Student[] = useMemo(() => {
-    try { return JSON.parse(localStorage.getItem("students") || "[]"); } catch { return []; }
+    try {
+      return JSON.parse(localStorage.getItem("students") || "[]");
+    } catch {
+      return [];
+    }
   }, []);
   const child0 = students[0] || null;
-  const fees = child0 ? calcFeesFor(child0.id) : { invoiced: 0, paid: 0, due: 0 };
-  const attendancePercent = child0 ? calcAttendancePercent(child0.className, child0.id) : 0;
+  const fees = child0
+    ? calcFeesFor(child0.id)
+    : { invoiced: 0, paid: 0, due: 0 };
+  const attendancePercent = child0
+    ? calcAttendancePercent(child0.className, child0.id)
+    : 0;
 
-  const child = child0 ? {
-    name: `${child0.firstName} ${child0.lastName}`,
-    class: child0.className,
-    attendancePercent,
-    feesDue: fees.due,
-    feesPaid: fees.paid,
-    messages: [
-      { id: 1, from: "Mrs. Molefe", text: "Reminder: PTA meeting this Friday.", time: "2 days ago" },
-      { id: 2, from: "Accounts", text: "School fees for Term 3 are due.", time: "1 week ago" },
-    ],
-  } : {
-    name: "Demo Learner",
-    class: "Grade 5 - A",
-    attendancePercent: 0,
-    feesDue: 0,
-    feesPaid: 0,
-    messages: [
-      { id: 1, from: "School", text: "Add students to see real data.", time: "Just now" },
-    ],
-  };
+  const child = child0
+    ? {
+        name: `${child0.firstName} ${child0.lastName}`,
+        class: child0.className,
+        attendancePercent,
+        feesDue: fees.due,
+        feesPaid: fees.paid,
+        messages: [
+          {
+            id: 1,
+            from: "Mrs. Molefe",
+            text: "Reminder: PTA meeting this Friday.",
+            time: "2 days ago",
+          },
+          {
+            id: 2,
+            from: "Accounts",
+            text: "School fees for Term 3 are due.",
+            time: "1 week ago",
+          },
+        ],
+      }
+    : {
+        name: "Demo Learner",
+        class: "Grade 5 - A",
+        attendancePercent: 0,
+        feesDue: 0,
+        feesPaid: 0,
+        messages: [
+          {
+            id: 1,
+            from: "School",
+            text: "Add students to see real data.",
+            time: "Just now",
+          },
+        ],
+      };
 
   return (
     <Layout>
@@ -66,18 +104,28 @@ export default function ParentPortal() {
           <div className="rounded-xl border bg-white p-6 shadow-sm">
             <div className="flex items-start justify-between">
               <div>
-                <div className="text-sm text-muted-foreground">{branding.schoolName}</div>
+                <div className="text-sm text-muted-foreground">
+                  {branding.schoolName}
+                </div>
                 <h2 className="text-2xl font-semibold mt-1">{child.name}</h2>
-                <div className="text-sm text-muted-foreground">{child.class}</div>
+                <div className="text-sm text-muted-foreground">
+                  {child.class}
+                </div>
               </div>
               <div className="flex items-center gap-3">
                 <div className="text-right">
-                  <div className="text-sm text-muted-foreground">Attendance</div>
-                  <div className="text-2xl font-bold text-slate-800">{child.attendancePercent}%</div>
+                  <div className="text-sm text-muted-foreground">
+                    Attendance
+                  </div>
+                  <div className="text-2xl font-bold text-slate-800">
+                    {child.attendancePercent}%
+                  </div>
                 </div>
                 <div>
                   <button
-                    onClick={() => setView(view === "parent" ? "student" : "parent")}
+                    onClick={() =>
+                      setView(view === "parent" ? "student" : "parent")
+                    }
                     className="px-3 py-2 rounded-md border text-sm"
                   >
                     View as {view === "parent" ? "Student" : "Parent"}
@@ -93,13 +141,19 @@ export default function ParentPortal() {
               </div>
               <div className="rounded-lg bg-white p-4 border">
                 <div className="text-sm text-muted-foreground">Amount Due</div>
-                <div className="text-xl font-bold text-red-600">P {child.feesDue}</div>
+                <div className="text-xl font-bold text-red-600">
+                  P {child.feesDue}
+                </div>
               </div>
               <div className="rounded-lg bg-white p-4 border">
-                <div className="text-sm text-muted-foreground">Next Payment</div>
+                <div className="text-sm text-muted-foreground">
+                  Next Payment
+                </div>
                 <div className="text-sm">Due in 14 days</div>
                 <div className="mt-2">
-                  <button className="px-3 py-2 rounded-md bg-blue-600 text-white text-sm">Pay Now</button>
+                  <button className="px-3 py-2 rounded-md bg-blue-600 text-white text-sm">
+                    Pay Now
+                  </button>
                 </div>
               </div>
             </div>
@@ -112,9 +166,13 @@ export default function ParentPortal() {
                     <div className="flex items-center justify-between">
                       <div>
                         <div className="font-semibold">{m.from}</div>
-                        <div className="text-sm text-muted-foreground">{m.text}</div>
+                        <div className="text-sm text-muted-foreground">
+                          {m.text}
+                        </div>
                       </div>
-                      <div className="text-xs text-muted-foreground">{m.time}</div>
+                      <div className="text-xs text-muted-foreground">
+                        {m.time}
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -128,14 +186,23 @@ export default function ParentPortal() {
               {Array.from({ length: 7 }).map((_, i) => {
                 const present = i % 6 !== 0; // demo: one absent day
                 return (
-                  <div key={i} className={`p-3 rounded-md text-center ${present ? "bg-green-50" : "bg-red-50"}`}>
-                    <div className="text-sm">{["Mon","Tue","Wed","Thu","Fri","Sat","Sun"][i]}</div>
-                    <div className="text-sm font-semibold">{present ? "P" : "A"}</div>
+                  <div
+                    key={i}
+                    className={`p-3 rounded-md text-center ${present ? "bg-green-50" : "bg-red-50"}`}
+                  >
+                    <div className="text-sm">
+                      {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"][i]}
+                    </div>
+                    <div className="text-sm font-semibold">
+                      {present ? "P" : "A"}
+                    </div>
                   </div>
                 );
               })}
             </div>
-            <div className="mt-3 text-sm text-muted-foreground">Marked by class teacher</div>
+            <div className="mt-3 text-sm text-muted-foreground">
+              Marked by class teacher
+            </div>
           </div>
         </div>
 
@@ -143,24 +210,37 @@ export default function ParentPortal() {
           <div className="rounded-xl border bg-white p-4 shadow-sm">
             <div className="text-sm text-muted-foreground">Parent</div>
             <div className="mt-2 font-semibold">Sibongile Kgosi</div>
-            <div className="text-sm text-muted-foreground">Mobile: +267 7xx xxxx</div>
+            <div className="text-sm text-muted-foreground">
+              Mobile: +267 7xx xxxx
+            </div>
             <div className="mt-3">
-              <button className="w-full px-3 py-2 rounded-md bg-blue-600 text-white">Contact School</button>
+              <button className="w-full px-3 py-2 rounded-md bg-blue-600 text-white">
+                Contact School
+              </button>
             </div>
           </div>
 
           <div className="rounded-xl border bg-white p-4 shadow-sm">
             <div className="text-sm text-muted-foreground">Quick Links</div>
             <div className="mt-3 flex flex-col gap-2">
-              <a href="#" className="text-sm text-blue-600 underline">View Invoice</a>
-              <a href="#" className="text-sm text-blue-600 underline">Download Report</a>
-              <a href="#" className="text-sm text-blue-600 underline">Message Teacher</a>
+              <a href="#" className="text-sm text-blue-600 underline">
+                View Invoice
+              </a>
+              <a href="#" className="text-sm text-blue-600 underline">
+                Download Report
+              </a>
+              <a href="#" className="text-sm text-blue-600 underline">
+                Message Teacher
+              </a>
             </div>
           </div>
 
           <div className="rounded-xl border bg-white p-4 shadow-sm">
             <div className="text-sm text-muted-foreground">Notes</div>
-            <div className="text-sm mt-2">Parent and student views share the same dashboard layout for consistent experience.</div>
+            <div className="text-sm mt-2">
+              Parent and student views share the same dashboard layout for
+              consistent experience.
+            </div>
           </div>
         </aside>
       </div>

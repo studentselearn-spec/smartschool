@@ -19,13 +19,23 @@ type AttendanceRecord = { studentId: string; present: boolean };
 function loadStudents(): Student[] {
   const raw = localStorage.getItem("students");
   if (!raw) return [];
-  try { const arr = JSON.parse(raw); return Array.isArray(arr) ? arr : []; } catch { return []; }
+  try {
+    const arr = JSON.parse(raw);
+    return Array.isArray(arr) ? arr : [];
+  } catch {
+    return [];
+  }
 }
 
 function loadAttendance(cls: string, date: string): AttendanceRecord[] {
   const raw = localStorage.getItem(`attendance:${cls}:${date}`);
   if (!raw) return [];
-  try { const arr = JSON.parse(raw); return Array.isArray(arr) ? arr : []; } catch { return []; }
+  try {
+    const arr = JSON.parse(raw);
+    return Array.isArray(arr) ? arr : [];
+  } catch {
+    return [];
+  }
 }
 
 function saveAttendance(cls: string, date: string, items: AttendanceRecord[]) {
@@ -34,16 +44,32 @@ function saveAttendance(cls: string, date: string, items: AttendanceRecord[]) {
 
 export default function Attendance() {
   const [cls, setCls] = useState<string>(CLASSES[4]);
-  const [date, setDate] = useState<string>(() => new Date().toISOString().slice(0,10));
+  const [date, setDate] = useState<string>(() =>
+    new Date().toISOString().slice(0, 10),
+  );
   const [students, setStudents] = useState<Student[]>(() => loadStudents());
-  const [items, setItems] = useState<AttendanceRecord[]>(() => loadAttendance(CLASSES[4], new Date().toISOString().slice(0,10)));
+  const [items, setItems] = useState<AttendanceRecord[]>(() =>
+    loadAttendance(CLASSES[4], new Date().toISOString().slice(0, 10)),
+  );
 
-  useEffect(() => { setStudents(loadStudents()); }, []);
-  useEffect(() => { setItems(loadAttendance(cls, date)); }, [cls, date]);
-  useEffect(() => { saveAttendance(cls, date, items); }, [cls, date, items]);
+  useEffect(() => {
+    setStudents(loadStudents());
+  }, []);
+  useEffect(() => {
+    setItems(loadAttendance(cls, date));
+  }, [cls, date]);
+  useEffect(() => {
+    saveAttendance(cls, date, items);
+  }, [cls, date, items]);
 
-  const classStudents = useMemo(() => students.filter(s => s.className === cls), [students, cls]);
-  const presentCount = useMemo(() => items.filter(i => i.present).length, [items]);
+  const classStudents = useMemo(
+    () => students.filter((s) => s.className === cls),
+    [students, cls],
+  );
+  const presentCount = useMemo(
+    () => items.filter((i) => i.present).length,
+    [items],
+  );
 
   return (
     <Layout>
@@ -52,10 +78,23 @@ export default function Attendance() {
           <h2 className="text-xl font-semibold">Attendance</h2>
           <div className="flex items-center gap-2">
             <label className="text-sm text-muted-foreground">Class</label>
-            <select className="rounded-md border bg-white px-2 py-1 text-sm" value={cls} onChange={(e)=>setCls(e.target.value)}>
-              {CLASSES.map(c => <option key={c} value={c}>{c}</option>)}
+            <select
+              className="rounded-md border bg-white px-2 py-1 text-sm"
+              value={cls}
+              onChange={(e) => setCls(e.target.value)}
+            >
+              {CLASSES.map((c) => (
+                <option key={c} value={c}>
+                  {c}
+                </option>
+              ))}
             </select>
-            <input type="date" value={date} onChange={(e)=>setDate(e.target.value)} className="rounded-md border bg-white px-2 py-1 text-sm" />
+            <input
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              className="rounded-md border bg-white px-2 py-1 text-sm"
+            />
           </div>
         </div>
 
@@ -68,18 +107,28 @@ export default function Attendance() {
               </tr>
             </thead>
             <tbody>
-              {classStudents.map(s => {
-                const rec = items.find(i => i.studentId === s.id) || { studentId: s.id, present: true };
+              {classStudents.map((s) => {
+                const rec = items.find((i) => i.studentId === s.id) || {
+                  studentId: s.id,
+                  present: true,
+                };
                 return (
                   <tr key={s.id} className="border-t">
-                    <td className="py-2">{s.firstName} {s.lastName}</td>
+                    <td className="py-2">
+                      {s.firstName} {s.lastName}
+                    </td>
                     <td className="py-2">
                       <input
                         type="checkbox"
                         checked={rec.present}
-                        onChange={(e)=>{
-                          const next = items.filter(i => i.studentId !== s.id);
-                          next.push({ studentId: s.id, present: e.target.checked });
+                        onChange={(e) => {
+                          const next = items.filter(
+                            (i) => i.studentId !== s.id,
+                          );
+                          next.push({
+                            studentId: s.id,
+                            present: e.target.checked,
+                          });
                           setItems(next);
                         }}
                       />
