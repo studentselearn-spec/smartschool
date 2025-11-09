@@ -1,4 +1,3 @@
-import { Link, useLocation } from "react-router-dom";
 import { BrandLogo } from "@/components/BrandLogo";
 import BrandingFooter from "@/components/BrandingFooter";
 import { getDefaultBranding } from "@/lib/branding";
