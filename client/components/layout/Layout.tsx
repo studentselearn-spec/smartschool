@@ -13,8 +13,11 @@ import {
   CalendarDays,
   Briefcase,
   Receipt,
+  Menu,
+  X,
 } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 const navItems = [
   { to: "/admin", label: "Dashboard", icon: LayoutGrid },
