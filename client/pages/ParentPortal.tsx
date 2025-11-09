@@ -1,20 +1,61 @@
 import Layout from "@/components/layout/Layout";
 import { getDefaultBranding } from "@/lib/branding";
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import type { Student } from "./Students";
+
+function calcFeesFor(studentId: string) {
+  const raw = localStorage.getItem("fees");
+  const fees = raw ? JSON.parse(raw) : {} as Record<string, { items: { type: "invoice"|"payment"; amount: number }[] }>;
+  const items = fees[studentId]?.items || [];
+  const invoiced = items.filter((i:any)=>i.type==="invoice").reduce((s:number,i:any)=>s+i.amount,0);
+  const paid = items.filter((i:any)=>i.type==="payment").reduce((s:number,i:any)=>s+i.amount,0);
+  return { invoiced, paid, due: Math.max(0, invoiced - paid) };
+}
+
+function calcAttendancePercent(cls: string, studentId: string) {
+  let present = 0, total = 0;
+  for (const key in localStorage) {
+    if (key.startsWith(`attendance:${cls}:`)) {
+      try {
+        const arr = JSON.parse(localStorage.getItem(key) || "[]");
+        const rec = arr.find((x: any) => x.studentId === studentId);
+        if (rec) { total++; if (rec.present) present++; }
+      } catch {}
+    }
+  }
+  if (total === 0) return 0;
+  return Math.round((present / total) * 100);
+}
 
 export default function ParentPortal() {
   const branding = getDefaultBranding(window);
   const [view, setView] = useState<"parent" | "student">("parent");
 
-  const child = {
-    name: "Tebogo Kgosi",
-    class: "Grade 5 - A",
-    attendancePercent: 92,
-    feesDue: 450,
-    feesPaid: 1550,
+  const students: Student[] = useMemo(() => {
+    try { return JSON.parse(localStorage.getItem("students") || "[]"); } catch { return []; }
+  }, []);
+  const child0 = students[0] || null;
+  const fees = child0 ? calcFeesFor(child0.id) : { invoiced: 0, paid: 0, due: 0 };
+  const attendancePercent = child0 ? calcAttendancePercent(child0.className, child0.id) : 0;
+
+  const child = child0 ? {
+    name: `${child0.firstName} ${child0.lastName}`,
+    class: child0.className,
+    attendancePercent,
+    feesDue: fees.due,
+    feesPaid: fees.paid,
     messages: [
       { id: 1, from: "Mrs. Molefe", text: "Reminder: PTA meeting this Friday.", time: "2 days ago" },
       { id: 2, from: "Accounts", text: "School fees for Term 3 are due.", time: "1 week ago" },
+    ],
+  } : {
+    name: "Demo Learner",
+    class: "Grade 5 - A",
+    attendancePercent: 0,
+    feesDue: 0,
+    feesPaid: 0,
+    messages: [
+      { id: 1, from: "School", text: "Add students to see real data.", time: "Just now" },
     ],
   };
 
