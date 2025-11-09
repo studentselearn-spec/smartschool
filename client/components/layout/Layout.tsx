@@ -147,7 +147,9 @@ if (!(window as any).__fuse_layout__) {
                       </button>
                     </div>
                     <nav className="flex flex-col gap-1">
-                      {navItems.map((item) => {
+                      {/* Dashboard */}
+                      {(() => {
+                        const item = navItems.find(n => n.to === "/admin")!;
                         const Icon = item.icon as any;
                         const active = location.pathname === item.to;
                         return (
@@ -156,16 +158,60 @@ if (!(window as any).__fuse_layout__) {
                             to={item.to}
                             onClick={() => setMobileOpen(false)}
                             className={`flex items-center gap-3 px-3 py-2 rounded-md mb-1 text-sm transition ${
-                              active
-                                ? "bg-blue-600 text-white shadow-sm"
-                                : "hover:bg-sky-50 text-slate-700"
+                              active ? "bg-blue-600 text-white shadow-sm" : "hover:bg-sky-50 text-slate-700"
                             }`}
                           >
                             <Icon size={18} />
                             {item.label}
                           </Link>
                         );
-                      })}
+                      })()}
+
+                      {/* Management group */}
+                      <ManagementGroup />
+
+                      {/* Operations group */}
+                      <OperationsGroup />
+
+                      {/* Reports */}
+                      {(() => {
+                        const item = navItems.find(n => n.to === "/reports")!;
+                        const Icon = item.icon as any;
+                        const active = location.pathname === item.to;
+                        return (
+                          <Link
+                            key={item.to}
+                            to={item.to}
+                            onClick={() => setMobileOpen(false)}
+                            className={`flex items-center gap-3 px-3 py-2 rounded-md mb-1 text-sm transition ${
+                              active ? "bg-blue-600 text-white shadow-sm" : "hover:bg-sky-50 text-slate-700"
+                            }`}
+                          >
+                            <Icon size={18} />
+                            {item.label}
+                          </Link>
+                        );
+                      })()}
+
+                      {/* Branding */}
+                      {(() => {
+                        const item = navItems.find(n => n.to === "/branding")!;
+                        const Icon = item.icon as any;
+                        const active = location.pathname === item.to;
+                        return (
+                          <Link
+                            key={item.to}
+                            to={item.to}
+                            onClick={() => setMobileOpen(false)}
+                            className={`flex items-center gap-3 px-3 py-2 rounded-md mb-1 text-sm transition ${
+                              active ? "bg-blue-600 text-white shadow-sm" : "hover:bg-sky-50 text-slate-700"
+                            }`}
+                          >
+                            <Icon size={18} />
+                            {item.label}
+                          </Link>
+                        );
+                      })()}
 
                       <div className="mt-3">
                         <Link
