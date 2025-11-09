@@ -53,12 +53,12 @@ if (!(window as any).__fuse_layout__) {
               <span className="text-slate-700">👥</span>
               <span>Management</span>
             </span>
-            <span className="text-sm">{open ? '−' : '+'}</span>
+            <span className="text-sm">{open ? "−" : "+"}</span>
           </button>
           {open && (
             <div className="pl-6 mt-1 flex flex-col gap-1">
-              {['/students','/parents','/staff'].map((to) => {
-                const item = navItems.find(n => n.to === to)!;
+              {["/students", "/parents", "/staff"].map((to) => {
+                const item = navItems.find((n) => n.to === to)!;
                 const Icon = item.icon as any;
                 const active = location.pathname === item.to;
                 return (
@@ -66,7 +66,7 @@ if (!(window as any).__fuse_layout__) {
                     key={to}
                     to={to}
                     onClick={() => setMobileOpen(false)}
-                    className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm transition ${active ? 'bg-blue-600 text-white' : 'hover:bg-sky-50 text-slate-700'}`}
+                    className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm transition ${active ? "bg-blue-600 text-white" : "hover:bg-sky-50 text-slate-700"}`}
                   >
                     <Icon size={16} />
                     <span>{item.label}</span>
@@ -92,12 +92,12 @@ if (!(window as any).__fuse_layout__) {
               <span className="text-slate-700">⚙️</span>
               <span>Operations</span>
             </span>
-            <span className="text-sm">{open ? '−' : '+'}</span>
+            <span className="text-sm">{open ? "−" : "+"}</span>
           </button>
           {open && (
             <div className="pl-6 mt-1 flex flex-col gap-1">
-              {['/attendance','/timetable','/fees','/expenses'].map((to) => {
-                const item = navItems.find(n => n.to === to)!;
+              {["/attendance", "/timetable", "/fees", "/expenses"].map((to) => {
+                const item = navItems.find((n) => n.to === to)!;
                 const Icon = item.icon as any;
                 const active = location.pathname === item.to;
                 return (
@@ -105,7 +105,7 @@ if (!(window as any).__fuse_layout__) {
                     key={to}
                     to={to}
                     onClick={() => setMobileOpen(false)}
-                    className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm transition ${active ? 'bg-blue-600 text-white' : 'hover:bg-sky-50 text-slate-700'}`}
+                    className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm transition ${active ? "bg-blue-600 text-white" : "hover:bg-sky-50 text-slate-700"}`}
                   >
                     <Icon size={16} />
                     <span>{item.label}</span>
@@ -229,7 +229,7 @@ if (!(window as any).__fuse_layout__) {
                     <nav className="flex flex-col gap-1">
                       {/* Dashboard */}
                       {(() => {
-                        const item = navItems.find(n => n.to === "/admin")!;
+                        const item = navItems.find((n) => n.to === "/admin")!;
                         const Icon = item.icon as any;
                         const active = location.pathname === item.to;
                         return (
@@ -238,7 +238,9 @@ if (!(window as any).__fuse_layout__) {
                             to={item.to}
                             onClick={() => setMobileOpen(false)}
                             className={`flex items-center gap-3 px-3 py-2 rounded-md mb-1 text-sm transition ${
-                              active ? "bg-blue-600 text-white shadow-sm" : "hover:bg-sky-50 text-slate-700"
+                              active
+                                ? "bg-blue-600 text-white shadow-sm"
+                                : "hover:bg-sky-50 text-slate-700"
                             }`}
                           >
                             <Icon size={18} />
@@ -255,7 +257,7 @@ if (!(window as any).__fuse_layout__) {
 
                       {/* Reports */}
                       {(() => {
-                        const item = navItems.find(n => n.to === "/reports")!;
+                        const item = navItems.find((n) => n.to === "/reports")!;
                         const Icon = item.icon as any;
                         const active = location.pathname === item.to;
                         return (
@@ -264,7 +266,9 @@ if (!(window as any).__fuse_layout__) {
                             to={item.to}
                             onClick={() => setMobileOpen(false)}
                             className={`flex items-center gap-3 px-3 py-2 rounded-md mb-1 text-sm transition ${
-                              active ? "bg-blue-600 text-white shadow-sm" : "hover:bg-sky-50 text-slate-700"
+                              active
+                                ? "bg-blue-600 text-white shadow-sm"
+                                : "hover:bg-sky-50 text-slate-700"
                             }`}
                           >
                             <Icon size={18} />
@@ -275,7 +279,9 @@ if (!(window as any).__fuse_layout__) {
 
                       {/* Branding */}
                       {(() => {
-                        const item = navItems.find(n => n.to === "/branding")!;
+                        const item = navItems.find(
+                          (n) => n.to === "/branding",
+                        )!;
                         const Icon = item.icon as any;
                         const active = location.pathname === item.to;
                         return (
@@ -284,7 +290,9 @@ if (!(window as any).__fuse_layout__) {
                             to={item.to}
                             onClick={() => setMobileOpen(false)}
                             className={`flex items-center gap-3 px-3 py-2 rounded-md mb-1 text-sm transition ${
-                              active ? "bg-blue-600 text-white shadow-sm" : "hover:bg-sky-50 text-slate-700"
+                              active
+                                ? "bg-blue-600 text-white shadow-sm"
+                                : "hover:bg-sky-50 text-slate-700"
                             }`}
                           >
                             <Icon size={18} />
